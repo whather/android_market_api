@@ -15,7 +15,7 @@ class AndroidMarketApplication
                 :updated, :sdk_required, :category, :downloads, :size, :content_rating, :description,
                 :screenshots, :developer_name, :icon, :update_text
 
-  @@debug=1
+  @@debug=0
   ###########################################################################################
   #  Contructor: Example Usage AndroidMarketApplication.new("com.bearstouch.smsscheduler")
   ############################################################################################
@@ -191,9 +191,8 @@ class AndroidMarketApplication
     element_ar=(doc/"div[@class='screenshot-carousel-content-container']/img")
     if element_ar
       element_ar.each  do |img|
-        puts img
-        puts "addding "+img['data-baseUrl'].to_s if @@debug == 1
-        @screenshots.push(img['data-baseUrl'].to_s)
+        puts "addding "+img['data-baseurl'].to_s if @@debug == 1
+        @screenshots.push(img['data-baseurl'].to_s)
       end
     end
   end
