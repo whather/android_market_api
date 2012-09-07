@@ -191,8 +191,8 @@ class AndroidMarketApplication
     element_ar=(doc/"div[@class='screenshot-carousel-content-container']/img")
     if element_ar
       element_ar.each  do |img|
-        puts "addding "+img['src'].to_s if @@debug == 1
-        @screenshots.push(img['src'].to_s)
+        puts "addding "+img['data-baseUrl'].to_s if @@debug == 1
+        @screenshots.push(img['data-baseUrl'].to_s)
       end
     end
   end
