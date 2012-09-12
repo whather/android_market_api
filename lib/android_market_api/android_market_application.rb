@@ -92,7 +92,7 @@ class AndroidMarketApplication
   end
 
   def fill_application_name(doc)
-     element=doc.at("dl[@class='doc-metadata-list']/meta[@itemprop='name']")
+     element=doc.at("dl[@class='doc-metadata-list']/span[@itemprop='name']")
      if element
        @name=element['content']
        puts "Application name ="+@name.to_s  if @@debug == 1
@@ -108,7 +108,7 @@ class AndroidMarketApplication
   end
 
   def fill_price(doc)
-    element=doc.at("meta[@itemprop='price']")
+    element=doc.at("span[@itemprop='price']")
     if element
       @price=element['content']
       puts "Application Price="+@price.to_s if @@debug == 1
