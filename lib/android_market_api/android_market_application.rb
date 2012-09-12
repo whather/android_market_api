@@ -92,9 +92,9 @@ class AndroidMarketApplication
   end
 
   def fill_application_name(doc)
-     element=doc.at("dl[@class='doc-metadata-list']/span[@itemprop='name']")
+     element=doc.at("h1[@class='doc-banner-title']")
      if element
-       @name=element['content']
+       @name=element.inner_html
        puts "Application name ="+@name.to_s  if @@debug == 1
      end
   end
