@@ -188,7 +188,7 @@ class AndroidMarketApplication
   end
 
   def fill_screenshots(doc)
-    element_ar=(doc/"div[@class='screenshot-carousel-content-container']/img")
+    element_ar=(doc/"div[@class='screenshot-carousel-content-container']/div")
     if element_ar
       element_ar.each  do |img|
         puts "addding "+img['data-baseurl'].to_s if @@debug == 1
