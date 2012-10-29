@@ -180,9 +180,9 @@ class AndroidMarketApplication
   end
 
   def fill_description(doc)
-    element=doc.at("div[@id='doc-original-text']")
+    element=doc.at("meta[@name='Description']")
     if element
-      @description=element.inner_html
+      @description=element['content']
       puts "Application Description ="+@description.to_s   if @@debug == 1
     end
   end
