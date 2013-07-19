@@ -92,7 +92,7 @@ class AndroidMarketApplication
   end
 
   def fill_application_name(doc)
-    element=doc.at("span[@itemprop='name']")
+    element=doc.at("div[@itemprop='name']/div")
     if element
       @name=element.inner_html
       puts "Application name ="+@name.to_s  if @@debug == 1
@@ -100,7 +100,7 @@ class AndroidMarketApplication
   end
 
   def fill_current_version(doc)
-    element=doc.at("dd[@itemprop='softwareVersion']")
+    element=doc.at("div[@itemprop='softwareVersion']")
     if element
      @current_version=element.inner_html
      puts "Application Version="+@current_version.to_s if @@debug == 1
@@ -108,7 +108,7 @@ class AndroidMarketApplication
   end
 
   def fill_price(doc)
-    element=doc.at("span[@itemprop='price']")
+    element=doc.at("meta[@itemprop='price']")
     if element
       @price=element['content']
       puts "Application Price="+@price.to_s if @@debug == 1
@@ -116,7 +116,7 @@ class AndroidMarketApplication
   end
 
   def fill_rating_value(doc)
-    element=doc.at("div[@itemprop='ratingValue']")
+    element=doc.at("meta[@itemprop='ratingValue']")
     if element
       @rating_value=element['content']
       puts "Application Rating Value ="+@rating_value.to_s if @@debug == 1
@@ -124,7 +124,7 @@ class AndroidMarketApplication
   end
 
   def fill_rating_count(doc)
-    element=doc.at("span[@itemprop='ratingCount']")
+    element=doc.at("meta[@itemprop='ratingCount']")
     if element
       @rating_count=element['content']
       puts "Application rating_count="+@rating_count.to_s if @@debug == 1
@@ -132,7 +132,7 @@ class AndroidMarketApplication
   end
 
   def fill_updated_at(doc)
-    element=doc.at("time[@itemprop='datePublished']")
+    element=doc.at("div[@itemprop='datePublished']")
     if element
       @updated=element.inner_html
       puts "Application updated="+@updated.to_s if @@debug == 1
@@ -140,87 +140,87 @@ class AndroidMarketApplication
   end
 
   def fill_sdk_required(doc)
-    element=doc.at("dt[@itemprop='operatingSystems']")
+    element=doc.at("div[@itemprop='operatingSystems']")
     if element
-      @sdk_required=element.next_node.inner_html
+      @sdk_required=element.inner_html.strip
       puts "Application SDK="+@sdk_required.to_s   if @@debug == 1
     end
   end
 
   def fill_category(doc)
-    element=doc.at("dt[@itemprop='operatingSystems']")
-    if element
-      @category = element.next_node.next_node.next_node.at('a').inner_text
-      puts "Application category="+@category.to_s   if @@debug == 1
-    end
+    # element=doc.at("dt[@itemprop='operatingSystems']")
+    # if element
+    #   @category = element.next_node.next_node.next_node.at('a').inner_text
+    #   puts "Application category="+@category.to_s   if @@debug == 1
+    # end
   end
 
   def fill_downloads(doc)
-    element=doc.at("dd[@itemprop='numDownloads']")
-    if element
-      @downloads=element.children.first
-      puts "Application install category="+@downloads.to_s if @@debug == 1
-    end
+    # element=doc.at("dd[@itemprop='numDownloads']")
+    # if element
+    #   @downloads=element.children.first
+    #   puts "Application install category="+@downloads.to_s if @@debug == 1
+    # end
   end
 
   def fill_size(doc)
-    element=doc.at("dd[@itemprop='fileSize']")
-    if element
-      @size=element.inner_html
-      puts "Application Size="+@size.to_s if @@debug == 1
-    end
+    # element=doc.at("dd[@itemprop='fileSize']")
+    # if element
+    #   @size=element.inner_html
+    #   puts "Application Size="+@size.to_s if @@debug == 1
+    # end
   end
 
   def fill_content_rating(doc)
-    element=doc.at("dd[@itemprop='contentRating']")
-    if element
-      @content_rating=element.inner_html
-      puts "Application Content Rating="+@content_rating.to_s if @@debug == 1
-    end
+    # element=doc.at("dd[@itemprop='contentRating']")
+    # if element
+    #   @content_rating=element.inner_html
+    #   puts "Application Content Rating="+@content_rating.to_s if @@debug == 1
+    # end
   end
 
   def fill_description(doc)
-    element=doc.at("meta[@name='Description']")
+    element=doc.at("div[@itemprop='description']/div")
     if element
-      @description=element['content']
+      @description=element.inner_html
       puts "Application Description ="+@description.to_s   if @@debug == 1
     end
   end
 
   def fill_screenshots(doc)
-    element_ar=(doc/"div[@class='screenshot-carousel-content-container']/div")
+    element_ar=(doc/"img[@class='full-screenshot']")
     if element_ar
       element_ar.each  do |img|
-        puts "addding "+img['data-baseurl'].to_s if @@debug == 1
-        @screenshots.push(img['data-baseurl'].to_s)
+        puts "adding "+img['src'].to_s if @@debug == 1
+        @screenshots.push(img['src'].to_s)
       end
     end
   end
 
   def fill_developer_name(doc)
-    element=doc.at("a[@class='doc-header-link']")
-    if element
-      @developer_name=element.inner_html
-      puts "Application Author= "+@developer_name.to_s if @@debug == 1
-    end
+    # element=doc.at("a[@class='doc-header-link']")
+    # if element
+    #   @developer_name=element.inner_html
+    #   puts "Application Author= "+@developer_name.to_s if @@debug == 1
+    # end
   end
 
   def fill_icon(doc)
-    element=doc.at("div[@class='doc-banner-icon']/img")
-    if element
-      @icon=element['src']
-      puts "Application Icon= "+@icon.to_s if @@debug == 1
-    end
+    # element=doc.at("div[@class='doc-banner-icon']/img")
+    # if element
+    #   @icon=element['src']
+    #   puts "Application Icon= "+@icon.to_s if @@debug == 1
+    # end
   end
 
   def fill_changed_text(doc)
-    element_ar=(doc/"div[@class='doc-whatsnew-container']/ol/li")
-    if element_ar
-     element_ar.each  do |parag|
-        puts "Application Update= "+parag.inner_html if @@debug == 1
-        @update_text << parag.inner_html
-     end
-    end
+    # element_ar=(doc/"div[@class='doc-whatsnew-container']/ol/li")
+    # if element_ar
+    #  element_ar.each  do |parag|
+    #     puts "Application Update= "+parag.inner_html if @@debug == 1
+    #     @update_text << parag.inner_html
+    #  end
+    # end
   end
 
 end
