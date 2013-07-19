@@ -108,7 +108,7 @@ class AndroidMarketApplication
   end
 
   def fill_price(doc)
-    element=doc.at("meta[@itemprop='price']")
+    element=doc.at("div[@itemprop='price']")
     if element
       @price=element['content']
       puts "Application Price="+@price.to_s if @@debug == 1
@@ -116,7 +116,7 @@ class AndroidMarketApplication
   end
 
   def fill_rating_value(doc)
-    element=doc.at("meta[@itemprop='ratingValue']")
+    element=doc.at("div[@itemprop='ratingValue']")
     if element
       @rating_value=element['content']
       puts "Application Rating Value ="+@rating_value.to_s if @@debug == 1
@@ -124,7 +124,7 @@ class AndroidMarketApplication
   end
 
   def fill_rating_count(doc)
-    element=doc.at("meta[@itemprop='ratingCount']")
+    element=doc.at("div[@itemprop='ratingCount']")
     if element
       @rating_count=element['content']
       puts "Application rating_count="+@rating_count.to_s if @@debug == 1
